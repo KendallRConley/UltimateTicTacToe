@@ -28,7 +28,7 @@ def checkBigFull(boards):
 game = True
 while game:
     boards = []
-    for integer in range(0,9):
+    for integer in range(9):
         board = Board()
         boards.append(board)
 
@@ -65,6 +65,9 @@ while game:
                 print("You win!")
                 inGame = False
                 break
+            if (checkBigFull(boards)):
+                inGame = False
+                break
             displayBoards(boards)
             if (boards[currentBoard].checkFull == False or boards[currentBoard].won == False):
                 currentBoard = boards[currentBoard].getLastPlace()
@@ -79,6 +82,9 @@ while game:
                 print("Computer has won board " + str(currentBoard))
             if (checkBigWin(boards)):
                 print("You have lost!")
+                inGame = False
+                break
+            if (checkBigFull(boards)):
                 inGame = False
                 break
             if (boards[currentBoard].checkFull == False or boards[currentBoard].won == False):
