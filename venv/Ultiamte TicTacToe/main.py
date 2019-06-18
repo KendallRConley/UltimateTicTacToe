@@ -66,8 +66,9 @@ while game:
                 inGame = False
                 break
             displayBoards(boards)
-            currentBoard = boards[currentBoard].getLastPlace()
-            while boards[currentBoard].checkFull == True or boards[currentBoard].won!= False:
+            if (boards[currentBoard].checkFull == False or boards[currentBoard].won == False):
+                currentBoard = boards[currentBoard].getLastPlace()
+            while boards[currentBoard].checkFull == True or boards[currentBoard].won == True:
                 print("Board " +  str(currentBoard) + " is full.")
                 currentBoard = random.randint(0, 8)
                 print("Board " + str(currentBoard) + " is the new board.")
@@ -80,10 +81,13 @@ while game:
                 print("You have lost!")
                 inGame = False
                 break
-            currentBoard = boards[currentBoard].getLastPlace()
+            if (boards[currentBoard].checkFull == False or boards[currentBoard].won == False):
+                currentBoard = boards[currentBoard].getLastPlace()
             displayBoards(boards)
 
-        if (Player == 'O'):
+        else:
+            if (boards[currentBoard].checkFull == False or boards[currentBoard].won == False):
+                currentBoard = boards[currentBoard].getLastPlace()
             while boards[currentBoard].checkFull == True or boards[currentBoard].won != False:
                 print("Board " + str(currentBoard) + " is full.")
                 currentBoard = random.randint(0, 8)
@@ -98,7 +102,8 @@ while game:
                 inGame = False
                 break
             displayBoards(boards)
-            currentBoard = boards[currentBoard].getLastPlace()
+            if (boards[currentBoard].checkFull == False or boards[currentBoard].won == False):
+                currentBoard = boards[currentBoard].getLastPlace()
             while boards[currentBoard].checkFull == True or boards[currentBoard].won != False:
                 print("Pick board")
                 currentBoard = int(input())
@@ -112,7 +117,6 @@ while game:
                 print("You win!")
                 inGame = False
                 break
-            currentBoard = boards[currentBoard].getLastPlace()
             displayBoards(boards)
 
 
