@@ -101,6 +101,9 @@ while game:
                 print("You have lost!")
                 inGame = False
                 break
+            if (checkBigFull(boards)):
+                inGame = False
+                break
             displayBoards(boards)
             if (boards[currentBoard].checkFull == False or boards[currentBoard].won == False):
                 currentBoard = boards[currentBoard].getLastPlace()
@@ -117,9 +120,10 @@ while game:
                 print("You win!")
                 inGame = False
                 break
+            if (checkBigFull(boards)):
+                inGame = False
+                break
             displayBoards(boards)
-
-
 
     print("Do you want to continue (N or n to exit)?")
     if (input() == 'N' or input() == 'n'):
