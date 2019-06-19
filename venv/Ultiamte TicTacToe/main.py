@@ -20,7 +20,7 @@ def checkBigWin(boards):
 
 def checkBigFull(boards):
     for i in range(9):
-        if (boards[i] == ' '):
+        if (boards[i].winPiece == ' '):
             return False
     print("Its a tie!")
     return True
