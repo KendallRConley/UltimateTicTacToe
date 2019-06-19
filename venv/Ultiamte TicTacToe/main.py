@@ -1,5 +1,6 @@
 from board import Board
 import random
+import copy
 
 
 def displayBoards(boards):
@@ -7,6 +8,20 @@ def displayBoards(boards):
         print("Board: " + str(i))
         boards[i].displayBoard()
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+#Comp checks to see if it can make a winning move in any open board, and takes it. May be too greedy and
+#not strategic enough for AI, will see.
+def findWinBoard(boards, Comp, Player):
+    for i in range(9):
+        if boards[i].won != True:
+            copyBoard = copy.copy(boards[i])
+            copyBoard.smartCompMove(Comp, Player)
+            if copyBoard.checkWin() == True:
+                boards[i].spots[copyBoard.lastPlace] = ' '
+                return i
+            boards[i].spots[copyBoard.lastPlace] = ' '
+        i+=1
+    return random.randint(0, 8)
 
 def checkBigWin(boards):
     return (((boards[0].winPiece == boards[1].winPiece == boards[2].winPiece) and (boards[0].winPiece != ' ')) or
@@ -73,7 +88,7 @@ while game:
                 currentBoard = boards[currentBoard].getLastPlace()
             while boards[currentBoard].checkFull == True or boards[currentBoard].won == True:
                 print("Board " +  str(currentBoard) + " is full.")
-                currentBoard = random.randint(0, 8)
+                currentBoard = findWinBoard(boards, Comp, Player)
                 print("Board " + str(currentBoard) + " is the new board.")
             boards[currentBoard].smartCompMove(Comp, Player)
             if (boards[currentBoard].checkWin()):
@@ -96,7 +111,7 @@ while game:
                 currentBoard = boards[currentBoard].getLastPlace()
             while boards[currentBoard].checkFull == True or boards[currentBoard].won != False:
                 print("Board " + str(currentBoard) + " is full.")
-                currentBoard = random.randint(0, 8)
+                currentBoard = findBestBoard(boards, Comp, Player)
                 print("Board " + str(currentBoard) + " is the new board.")
             boards[currentBoard].smartCompMove(Comp, Player)
             if (boards[currentBoard].checkWin()):
